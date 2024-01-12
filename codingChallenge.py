@@ -1,7 +1,8 @@
 import math
 import re
+import os
 
-def readNumber(file):
+def readMessage(file):
     theText = open(file, "r")
     values = re.findall("[a-zA-Z]+", theText.read())
     theText.close()
@@ -15,4 +16,12 @@ def readNumber(file):
     outputMsg = ""
     for i in range(0, math.floor(len(keys)/2)):
         outputMsg = outputMsg+" "+theDict[str(i+i+1)]
-    print(outputMsg)
+    return(outputMsg)
+
+def saveMessage(inputFile, outputFile):
+    if not os.path.exists(outputFile):
+        with open(outputFile, "w") as something:
+            text = readMessage(inputFile)
+            something.write(text)
+            something.close()
+saveMessage("input.txt", "output.txt")
