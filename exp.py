@@ -5,10 +5,14 @@ try:
 except:
     currentTable_df = ""
 
+currentTable_df = pd.DataFrame(currentTable_df)
+last_entry_month = currentTable_df["month"].max()
+last_entry_year = currentTable_df["year"].max()
 def newEntry(table):
     addEntry = "y"
     while addEntry == "y":
-        newEntry = {"year":input("what's the year\n=>"), "month":input("what's the month?\n=>"), "category":input("what's the category\n=>"), "amount":input("=>what's the amount\n=>")}
+        newEntry = {"year":last_entry_year, "month":last_entry_month, "category":"", "amount":""}
+        newEntry = {"year":input("what's the year(Press ENTER for " + str(last_entry_year) + ")\n=>"), "month":input("what's the month?(Press ENTER for " + str(last_entry_month) + ")\n=>"), "category":input("what's the category\n=>"), "amount":input("=>what's the amount\n=>")}
         newEntry_df = pd.DataFrame([newEntry])
         print(newEntry_df)
         if input("\nIs this correct? (y/n) =>") == "y":
@@ -46,8 +50,6 @@ while (menuChoice != "4"):
             currentTable_df = newEntry(currentTable_df)
         case "3":
             total = 0
-            currentTable_df = pd.DataFrame(currentTable_df)
-            last_entry_month = currentTable_df["month"].max()
             dataframeColList = list(currentTable_df[currentTable_df["month"] == last_entry_month]["amount"])
             for i in dataframeColList:
                 total += float(i)
