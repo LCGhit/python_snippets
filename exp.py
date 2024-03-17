@@ -11,8 +11,10 @@ last_entry_year = currentTable_df["year"].max()
 def newEntry(table):
     addEntry = "y"
     while addEntry == "y":
-        newEntry = {"year":last_entry_year, "month":last_entry_month, "category":"", "amount":""}
         newEntry = {"year":input("what's the year(Press ENTER for " + str(last_entry_year) + ")\n=>"), "month":input("what's the month?(Press ENTER for " + str(last_entry_month) + ")\n=>"), "category":input("what's the category\n=>"), "amount":input("=>what's the amount\n=>")}
+        newEntry["year"] = last_entry_year if newEntry["year"] == "" else newEntry["year"]
+        newEntry["month"] = last_entry_month if newEntry["month"] == "" else newEntry["month"]
+
         newEntry_df = pd.DataFrame([newEntry])
         print(newEntry_df)
         if input("\nIs this correct? (y/n) =>") == "y":
