@@ -41,15 +41,15 @@ def newEntry(table):
 
 menuChoice = ""
 while (menuChoice != "4"):
-    menuChoice = input("What woud you like to do?\n1 Show current expenses\n2 New entry\n3 Current month's total\n4 Exit\n=>")
+    menuChoice = input("What woud you like to do?\n1 New entry\n2 Show expenses\n3 Current month's total\n4 Exit\n=>")
     match menuChoice:
         case "1":
+            currentTable_df = newEntry(currentTable_df)
+        case "2":
             try:
                 print("Current expenses", currentTable_df)
             except:
                 print("No expenses yet")
-        case "2":
-            currentTable_df = newEntry(currentTable_df)
         case "3":
             total = 0
             dataframeColList = list(currentTable_df[currentTable_df["month"] == last_entry_month]["amount"])
