@@ -31,12 +31,6 @@ def newEntry(table):
         else:
             print("Operation cancelled")
             addEntry = input("Another entry?(y/n) =>\n")
-            if addEntry == "y":
-                continue
-            elif addEntry == "n":
-                break
-            else:
-                print("invalid input")
     return table
 
 menuChoice = ""
