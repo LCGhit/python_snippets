@@ -48,8 +48,8 @@ while (menuChoice != "4"):
             total = 0
             dataframeColList = list(currentTable_df[currentTable_df["month"] == last_entry_month]["amount"])
             for i in dataframeColList:
-                total += float(i)
-            print(total)
+                total += int(i*100)
+            print(total/100)
         case "4":
             print("Exited\n")
         case _:
