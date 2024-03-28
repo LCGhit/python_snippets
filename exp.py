@@ -1,13 +1,5 @@
 import pandas as pd
 
-try:
-    currentTable_df = pd.read_csv("exp.csv", index_col=[0])
-except:
-    currentTable_df = ""
-
-currentTable_df = pd.DataFrame(currentTable_df)
-last_entry_month = currentTable_df["month"].max()
-last_entry_year = currentTable_df["year"].max()
 def newEntry(table):
     addEntry = "y"
     while addEntry == "y":
@@ -33,24 +25,35 @@ def newEntry(table):
             addEntry = input("Another entry?(y/n) =>\n")
     return table
 
-menuChoice = ""
-while (menuChoice != "4"):
-    menuChoice = input("What woud you like to do?\n1 New entry\n2 Show expenses\n3 Current month's total\n4 Exit\n=>")
-    match menuChoice:
-        case "1":
-            currentTable_df = newEntry(currentTable_df)
-        case "2":
-            try:
-                print("Current expenses", currentTable_df)
-            except:
-                print("No expenses yet")
-        case "3":
-            total = 0
-            dataframeColList = list(currentTable_df[currentTable_df["month"] == last_entry_month]["amount"])
-            for i in dataframeColList:
-                total += int(i*100)
-            print(total/100)
-        case "4":
-            print("Exited\n")
-        case _:
-            print("Invalid input\n=>")
+def menu(table):
+    menuChoice = ""
+    while (menuChoice != "4"):
+        menuChoice = input("What woud you like to do?\n1 New entry\n2 Show expenses\n3 Current month's total\n4 Exit\n=>")
+        match menuChoice:
+            case "1":
+                currentTable_df = newEntry(table)
+            case "2":
+                try:
+                    print("Current expenses", table)
+                except:
+                    print("No expenses yet")
+            case "3":
+                total = 0
+                dataframeColList = list(table[table["month"] == last_entry_month]["amount"])
+                for i in dataframeColList:
+                    total += int(i*100)
+                    print(total/100)
+            case "4":
+                print("Exited\n")
+            case _:
+                print("Invalid input\n=>")
+
+
+try:
+    currentTable_df = pd.read_csv("exp.csv", index_col=[0])
+    currentTable_df = pd.DataFrame(currentTable_df)
+    last_entry_month = currentTable_df["month"].max()
+    last_entry_year = currentTable_df["year"].max()
+    menu(currentTable_df)
+except:
+    currentTable_df = pd.DataFrame
